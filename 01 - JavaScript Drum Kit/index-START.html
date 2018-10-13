@@ -59,7 +59,37 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+
     console.log("Ready!");
+
+    const playSoundFromKeyboard = (e) => {
+
+      const audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
+
+      audio.play();
+
+      // console.log(audio);
+    }
+
+    // Add event listener for keyboard events
+    window.addEventListener('keyup', playSoundFromKeyboard);
+
+    const playSoundByClick = (e) => {
+
+      const clickedKeyCode = e.currentTarget.dataset.key;
+
+      const audio = document.querySelector(`audio[data-key='${clickedKeyCode}']`);
+
+      audio.play();
+
+      console.log(clickedKeyCode);
+    }
+
+    let allKeys = document.querySelectorAll('.key');
+    // console.log(allKeys);
+    allKeys.forEach(el => {
+      el.addEventListener('click', playSoundByClick);
+    })
   })
 </script>
 

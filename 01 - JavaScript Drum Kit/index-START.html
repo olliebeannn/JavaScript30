@@ -62,29 +62,52 @@
 
     console.log("Ready!");
 
-    const playSoundFromKeyboard = (e) => {
+    // Give visual feedback of relevant key played
+    const keyPlayedAnimation = (keyCode) => {
+      console.log(`Just played: ${keyCode}`);
 
-      const audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
+      const keyDiv = document.querySelector(`div[data-key='${keyCode}']`);
+      keyDiv.classList.add('playing');
+      // console.log(keyDiv);
 
-      audio.play();
-
-      // console.log(audio);
+      window.setTimeout(() => {
+        keyDiv.classList.remove('playing');
+      }, 100);
     }
 
-    // Add event listener for keyboard events
+    // const removePlayingClass = (keyCode) => {
+    //   const keyDiv = document.querySelector(`div[data-key='${keyCode}']`);
+    //   keyDiv.classList.remove('playing');
+    // }
+
+    // Event handler for keyboard interaction
+    const playSoundFromKeyboard = (e) => {
+      const playedKeyCode = e.keyCode;
+
+      keyPlayedAnimation(playedKeyCode);
+
+      const audio = document.querySelector(`audio[data-key='${playedKeyCode}']`);
+      audio.play();
+
+    }
+
+    // Add keyboard listener to window
     window.addEventListener('keyup', playSoundFromKeyboard);
 
+    // Event handler for click events
     const playSoundByClick = (e) => {
-
       const clickedKeyCode = e.currentTarget.dataset.key;
 
-      const audio = document.querySelector(`audio[data-key='${clickedKeyCode}']`);
+      keyPlayedAnimation(clickedKeyCode);
 
+      const audio = document.querySelector(`audio[data-key='${clickedKeyCode}']`);
       audio.play();
 
-      console.log(clickedKeyCode);
+      // removePlayingClass(clickedKeyCode);
+      // console.log(clickedKeyCode);
     }
 
+    // Attach click handler to all keys
     let allKeys = document.querySelectorAll('.key');
     // console.log(allKeys);
     allKeys.forEach(el => {

@@ -18,13 +18,17 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img class='photo' src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
 
     /*
       misc styles, nothing to do with CSS variables
     */
+
+    :root {
+        --spacing: 10px;
+    }
 
     body {
       text-align: center;
@@ -42,9 +46,32 @@
     input {
       width: 100px;
     }
+
+    .photo {
+        position: relative;
+        top: var(--spacing);
+        left: var(--spacing);
+    }
+
   </style>
 
   <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        console.log("Loaded!");
+
+        //Collect the spacing's setting when changed
+        //Use value to update the css variable
+
+        const spacingControl = document.querySelector('#spacing');
+
+        spacingControl.addEventListener('input', function() {
+            console.log(this.value);
+        });
+
+    });
+
   </script>
 
 </body>

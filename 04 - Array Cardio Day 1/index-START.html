@@ -87,7 +87,9 @@
     let sortedByLastName = people.sort((a, b) => {
         let lastNameA = a.split(',')[0]
         let lastNameB = b.split(',')[0]
-        return lastNameA - lastNameB;
+        // console.log(`a: ${a}, b: ${b}`);
+        // console.log(lastNameA - lastNameB);
+        return lastNameA.localeCompare(lastNameB);
     });
 
     console.log(sortedByLastName);

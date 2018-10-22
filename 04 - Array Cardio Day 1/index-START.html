@@ -32,7 +32,7 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
     let filter = inventors.filter(inventor => (inventor.year >= 1500) && (inventor.year < 1600));
-    
+
     console.log(filter);
 
     // Array.prototype.map()
@@ -43,26 +43,71 @@
         let name = `${inventor.first} ${inventor.last}`;
         mapped.push(name);
     })
+
     console.log(mapped);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    let sorted = inventors.sort((a, b) => {
+        return a.year - b.year;
+    });
+
+    console.log(sorted);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    let yearsLived = inventors.reduce((total, inventor) => {
+        // console.log(inventor.passed - inventor.year);
+        total += (inventor.passed - inventor.year);
+        return total;
+    }, 0);
+
+    console.log(yearsLived);
 
     // 5. Sort the inventors by years lived
+    let inventorsPlusYearsLived = inventors.map(inventor => {
+        inventor.yearsLived = inventor.passed - inventor.year;
+        return inventor;
+    });
+
+    let sortedByYearsLived = inventorsPlusYearsLived.sort((a, b) => {
+        return a.yearsLived - b.yearsLived;
+    });
+
+    console.log(sortedByYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
 
+
+
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    let sortedByLastName = people.sort((a, b) => {
+        let lastNameA = a.split(',')[0]
+        let lastNameB = b.split(',')[0]
+        return lastNameA - lastNameB;
+    });
+
+    console.log(sortedByLastName);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    let instances = {};
+
+    data.map(a => {
+        if(a in instances) {
+            instances[a] += 1;
+        }
+        else {
+            instances[a] = 1
+        }
+    });
+
+    console.log(instances);
 
   </script>
 </body>

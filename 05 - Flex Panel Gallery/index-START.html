@@ -135,12 +135,23 @@
 
         console.log("loaded!");
 
+        // Variable for the current panel
+        let currentPanel = null;
+
+        // Select all panels and add event listeners
         const panels = Array.from(document.querySelectorAll('.panel'));
         console.log(panels);
 
         panels.forEach(el => {
             el.addEventListener("click", function(e) {
                 console.log(e.currentTarget);
+
+                if(currentPanel !== null) {
+                    currentPanel.removeAttribute("style");
+                }
+
+                currentPanel = e.currentTarget;
+                currentPanel.setAttribute("style", "flex: 4");
             });
         })
 

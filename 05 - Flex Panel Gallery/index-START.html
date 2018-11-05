@@ -136,7 +136,6 @@
         console.log("loaded!");
 
         // Variable for the current panel
-        let currentPanel = null;
 
         // Select all panels and add event listeners
         const panels = Array.from(document.querySelectorAll('.panel'));
@@ -146,12 +145,28 @@
             el.addEventListener("click", function(e) {
                 console.log(e.currentTarget);
 
-                if(currentPanel !== null) {
-                    currentPanel.removeAttribute("style");
+                let panel = e.currentTarget;
+
+                let topWord = Array.from(panel.children)[0];
+                let lastWord = Array.from(panel.children)[2];
+
+                console.log(panel.hasAttribute("style"));
+
+                if(panel.hasAttribute("style")) {
+                    panel.removeAttribute("style");
+
+                    topWord.removeAttribute("style");
+                    lastWord.removeAttribute("style");
                 }
 
-                currentPanel = e.currentTarget;
-                currentPanel.setAttribute("style", "flex: 4");
+                else {
+                    panel.setAttribute("style", "flex: 3");
+
+                    topWord.setAttribute("style", "transform: translateY(0)");
+                    lastWord.setAttribute("style", "transform: translateY(0)");
+                }
+
+                // console.log(Array.from(currentPanel.children));
             });
         })
 

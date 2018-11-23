@@ -39,7 +39,10 @@
 
             // console.log(currentVal);
 
-            let results = cities.filter(city => city.city.toLowerCase().includes(currentVal));
+            // let results = cities.filter(city => city.city.toLowerCase().includes(currentVal));
+            let results = cities.filter(function(city) {
+                return (city.city.toLowerCase().includes(currentVal)) || (city.state.toLowerCase().includes(currentVal));
+            });
 
             console.log(results);
 
@@ -52,14 +55,18 @@
 
             results.forEach((result) => {
                 let li = document.createElement('li');
-                let p1 = document.createElement('p');
-                let p2 = document.createElement('p');
+                let p1 = document.createElement('span');
+                let p2 = document.createElement('span');
 
                 p1.innerHTML = `${result.city}, ${result.state}`;
                 p2.innerHTML = `${parseInt(result.population).toLocaleString('en')}`;
 
                 li.appendChild(p1);
                 li.appendChild(p2);
+
+                // let regex = new RegExp(currentVal, 'gi');
+                // console.log(regex);
+                // li.innerHTML = li.innerHTML.replace(regex, `<span class=hl>${currentVal}</span>`);
 
                 suggestions.append(li);
             });

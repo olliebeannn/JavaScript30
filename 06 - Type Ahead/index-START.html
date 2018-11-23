@@ -15,7 +15,40 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        console.log("loaded!");
+
+        // Fetch the data and load into cities
+        const cities = [];
+
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => cities.push(...data));
+
+        // console.log(cities);
+
+        // Attach event handler to searchbox to grab content
+        const searchbox = document.querySelector('.search');
+
+        searchbox.addEventListener('keyup', function(e) {
+            let currentVal = searchbox.value.toLowerCase();
+
+            console.log(currentVal);
+
+            let results = cities.filter(city => city.city.toLowerCase().includes(currentVal));
+
+            console.log(results);
+
+            // console.log(cities);
+
+            
+        });
+
+    });
 
 </script>
   </body>

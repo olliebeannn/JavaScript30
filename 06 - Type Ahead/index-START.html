@@ -37,15 +37,33 @@
         searchbox.addEventListener('keyup', function(e) {
             let currentVal = searchbox.value.toLowerCase();
 
-            console.log(currentVal);
+            // console.log(currentVal);
 
             let results = cities.filter(city => city.city.toLowerCase().includes(currentVal));
 
             console.log(results);
 
-            // console.log(cities);
+            // Remove placeholder and replace results
+            const suggestions = document.querySelector('.suggestions');
 
-            
+            while(suggestions.hasChildNodes()) {
+                suggestions.removeChild(suggestions.firstChild)
+            };
+
+            results.forEach((result) => {
+                let li = document.createElement('li');
+                let p1 = document.createElement('p');
+                let p2 = document.createElement('p');
+
+                p1.innerHTML = `${result.city}, ${result.state}`;
+                p2.innerHTML = `${parseInt(result.population).toLocaleString('en')}`;
+
+                li.appendChild(p1);
+                li.appendChild(p2);
+
+                suggestions.append(li);
+            });
+
         });
 
     });

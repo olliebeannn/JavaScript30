@@ -99,52 +99,38 @@
 
     document.addEventListener("DOMContentLoaded", function() {
 
-        console.log("Loaded!");
+        // console.log("Loaded!");
 
-        // Listen for click events on Checkboxes
-        // If checkbox isn't checked...
-        // Check this box
-        // Check to see if the shift key is down
-        // If it's not, set the "last checked" checkbox to this one
-        // If it is, find the last checkbox checked, and check everything between them
+        // Variable to track last checked box
+        let lastChecked;
 
-        let lastChecked = null;
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
+        function handleCheck(e) {
+            // Variable to track if we're between current check and last checked in loop
+            let inBetween = false;
 
-        // Create shift down variable to track if shift key is down
-        let shiftDown = false;
+            if(e.shiftKey && this.checked) {
 
-        document.addEventListener("keydown", function(e) {
-            if(e.code === "ShiftLeft" || e.code === "ShiftRight") {
-                console.log("Shift!");
-                shiftDown = true;
-                console.log(`ShiftDown is ${shiftDown}`);
+                checkboxes.forEach(checkbox => {
+                    // console.log(checkbox);
+
+                    if(checkbox === this || checkbox === lastChecked) {
+                        inBetween = !inBetween;
+                        console.log("checking in between");
+                    }
+
+                    if(inBetween) {
+                        checkbox.checked = true;
+                    }
+                });
+
             }
-        });
 
-        document.addEventListener("keyup", function(e) {
-            shiftDown = false;
-            console.log(`ShiftDown is ${shiftDown}`);
-        })
+            lastChecked = this;
+        }
 
-        const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener("click", function(e) {
-                // console.log(e.target);
-
-                if(shiftDown) {
-                    console.log("Group check!");
-                }
-
-                else {
-                    lastChecked = e.target;
-                    console.log(lastChecked);
-                }
-            });
-        })
-
-
+        checkboxes.forEach(checkbox => checkbox.addEventListener("click", handleCheck));
 
     });
 

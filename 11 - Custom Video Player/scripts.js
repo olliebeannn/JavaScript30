@@ -36,11 +36,12 @@ document.addEventListener("DOMContentLoaded", function() {
     
     function seek(e) {
         // Calculate click position relative to duration, convert to time
-        let position = e.clientX - e.target.getBoundingClientRect().x;
-        console.log(`clientX: ${e.clientX}, bounding: ${e.target.getBoundingClientRect().x}`)
+        let position = e.clientX - progressContainer.getBoundingClientRect().x;
+        // console.log(`clientX: ${e.clientX}, bounding: ${e.target.getBoundingClientRect().x}`);
+        // console.log(e.target);
         
         // Convert relative position to time
-        let newTime = parseInt(position / e.target.offsetWidth * vid.duration);
+        let newTime = parseInt(position / progressContainer.offsetWidth * vid.duration);
         
         console.log(`position: ${position}, new time: ${newTime}`);
         

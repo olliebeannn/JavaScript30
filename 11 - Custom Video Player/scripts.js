@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const play = document.querySelector('button[title="Toggle Play"]');
     console.log(play);
     
+    const progressContainer = document.querySelector('.progress');
+    console.log(progressContainer);
+    
     const progress = document.querySelector('.progress__filled');
     console.log(progress);
     
@@ -25,6 +28,28 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(forward25);
     
     // Handling functions
+    function setProgress() {
+        let percentage = vid.currentTime / vid.duration * 100;
+        
+        progress.style.flexBasis = `${percentage}%`;
+    }
+    
+    function seek(e) {
+        // Calculate click position relative to duration, convert to time
+        let position = e.clientX - e.target.getBoundingClientRect().x;
+        console.log(`clientX: ${e.clientX}, bounding: ${e.target.getBoundingClientRect().x}`)
+        
+        // Convert relative position to time
+        let newTime = parseInt(position / e.target.offsetWidth * vid.duration);
+        
+        console.log(`position: ${position}, new time: ${newTime}`);
+        
+        // Update time of video
+        vid.currentTime = newTime;
+        
+        // setProgress()? or not necessary with other event listener?
+    }
+    
     function togglePlay() {
         if(vid.paused) { 
             vid.play(); 
@@ -62,5 +87,10 @@ document.addEventListener("DOMContentLoaded", function() {
     speed.addEventListener("input", setPlaybackSpeed);
     
     back10.addEventListener("click", skip);
+    
     forward25.addEventListener("click", skip);
+    
+    vid.addEventListener("timeupdate", setProgress);
+    
+    progressContainer.addEventListener("click", seek);
 });

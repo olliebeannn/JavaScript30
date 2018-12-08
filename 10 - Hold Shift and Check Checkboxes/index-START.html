@@ -96,6 +96,58 @@
   </div>
 
 <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        console.log("Loaded!");
+
+        // Listen for click events on Checkboxes
+        // If checkbox isn't checked...
+        // Check this box
+        // Check to see if the shift key is down
+        // If it's not, set the "last checked" checkbox to this one
+        // If it is, find the last checkbox checked, and check everything between them
+
+        let lastChecked = null;
+
+
+        // Create shift down variable to track if shift key is down
+        let shiftDown = false;
+
+        document.addEventListener("keydown", function(e) {
+            if(e.code === "ShiftLeft" || e.code === "ShiftRight") {
+                console.log("Shift!");
+                shiftDown = true;
+                console.log(`ShiftDown is ${shiftDown}`);
+            }
+        });
+
+        document.addEventListener("keyup", function(e) {
+            shiftDown = false;
+            console.log(`ShiftDown is ${shiftDown}`);
+        })
+
+        const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("click", function(e) {
+                // console.log(e.target);
+
+                if(shiftDown) {
+                    console.log("Group check!");
+                }
+
+                else {
+                    lastChecked = e.target;
+                    console.log(lastChecked);
+                }
+            });
+        })
+
+
+
+    });
+
 </script>
 </body>
 </html>
